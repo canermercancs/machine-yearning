@@ -2,9 +2,9 @@ from typing import Any
 from pydantic import BaseModel, Field
 
 
-class Healthy(BaseModel):
+class HealthSchema(BaseModel):
     """
-    Healthy model for the health check of model API.
+    Health model for the health check of model API.
     """
 
     status: str = Field(
@@ -14,7 +14,7 @@ class Healthy(BaseModel):
     model_name: str | None = Field(..., description="Name of the model")
 
 
-class InputRequest(BaseModel):
+class InputSchema(BaseModel):
     """
     Model input request.
     """
@@ -22,7 +22,7 @@ class InputRequest(BaseModel):
     data: Any = Field(..., description="Input Data")
 
 
-class ModelResponse(BaseModel):
+class ModelResponseSchema(BaseModel):
     """
     Model response.
     """

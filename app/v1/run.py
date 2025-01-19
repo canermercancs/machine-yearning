@@ -5,7 +5,7 @@ from contextlib import asynccontextmanager
 from typing import Any
 from collections.abc import AsyncGenerator
 from fastapi import FastAPI, HTTPException, status
-from schemas import Healthy, InputRequest, ModelResponse
+from schemas import HealthSchema, InputSchema, ModelResponseSchema
 from classes import ModelContainer, MockContainer
 
 if DEBUG_MODE:
@@ -15,10 +15,6 @@ else:
 
 # # Variables set during API startup
 # MODEL = {}
-# cols = ['claim_amount_claimed_total', 'claim_causetype', 'claim_date_occurred', 'claim_date_reported',
-#         'claim_location_urban_area', 'object_make', 'object_year_construction', 'ph_gender', 'policy_fleet_flag',
-#         'policy_insured_amount', 'policy_profitability']
-
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
@@ -45,23 +41,23 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 app = FastAPI(title="Caner's Custom Model", lifespan=lifespan)
 
 
-@app.get("/health", response_model=Healthy)
+@app.get("/health", response_model=HealthSchema)
 def health() -> dict[str, str]:
     """
     Health check endpoint to see if API is running.
 
-    :return: Healthy status and version.
+    :return: HealthSchema status and version.
     """
 
     if not MODEL_CONTAINER.model:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="Cannot find the model!"
         )
-    return dict(status="healthy", model_name=MODEL_CONTAINER.model_name, version="0.0.1")
+    return dict(status="HealthSchema", model_name=MODEL_CONTAINER.model_name, version="0.0.1")
 
 
-@app.post("/predict", response_model=ModelResponse)
-async def predict(request: InputRequest) -> dict[str, Any]:
+@app.post("/predict", response_model=ModelResponseSchema)
+async def predict(request: InputSchema) -> dict[str, Any]:
     """
     Predict endpoint for model.
     """
@@ -73,8 +69,3 @@ async def predict(request: InputRequest) -> dict[str, Any]:
 
     return {"prediction": model.predict(data)}    
 
-
-if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run("run:app", host="0.0.0.0", port=8080) # , reload=bool(os.getenv("DEBUG")))

@@ -4,7 +4,7 @@ import requests
 
 
 URL = "http://localhost"
-PORT = "8080"
+PORT = "8000"
 
 INPUT = {"data": "example data"}
 
