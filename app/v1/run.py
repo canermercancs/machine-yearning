@@ -1,4 +1,3 @@
-import os
 from constants import DEBUG_MODE
 from pathlib import Path
 from contextlib import asynccontextmanager
@@ -12,9 +11,6 @@ if DEBUG_MODE:
     MODEL_CONTAINER = MockContainer()
 else:
     MODEL_CONTAINER = ModelContainer()
-
-# # Variables set during API startup
-# MODEL = {}
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
