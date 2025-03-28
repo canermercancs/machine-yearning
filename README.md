@@ -3,7 +3,13 @@
 
 ### Installation
 
-install poetry ()link
+install poetry 
+```bash
+sudo apt update
+sudo apt install pipx
+pipx ensurepath
+pipx install poetry
+```
 
 Then, you can activate the python environment as
 ```bash
