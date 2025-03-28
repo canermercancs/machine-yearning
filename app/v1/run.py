@@ -7,10 +7,7 @@ from fastapi import FastAPI, HTTPException, status
 from schemas import HealthSchema, InputSchema, ModelResponseSchema
 from classes import ModelContainer, MockContainer
 
-if DEBUG_MODE:
-    MODEL_CONTAINER = MockContainer()
-else:
-    MODEL_CONTAINER = ModelContainer()
+MODEL_CONTAINER = MockContainer() if DEBUG_MODE else ModelContainer()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
@@ -64,4 +61,3 @@ async def predict(request: InputSchema) -> dict[str, Any]:
     model = MODEL_CONTAINER.model
 
     return {"prediction": model.predict(data)}    
-

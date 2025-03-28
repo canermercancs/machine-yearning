@@ -2,7 +2,7 @@
 name = "machine-yearning"
 version = "0.1.0"
 description = ""
-authors = ["Caner Mercan <mercancaner@protonmail.com>"]
+authors = ["Caner Mercan"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
@@ -13,7 +13,8 @@ pathlib = "^1.0.1"
 requests = "^2.32.3"
 httpx = "^0.28.1"
 numpy = "^2.2.0"
-
+torch = { url = "https://download.pytorch.org/whl/cpu/torch-2.6.0%2Bcpu-cp311-cp311-linux_x86_64.whl", markers = "platform_machine == 'x86_64' and platform_python_implementation == 'CPython' and platform_system == 'Linux'" }
+torchvision = { url = "https://download.pytorch.org/whl/cpu/torchvision-0.21.0%2Bcpu-cp311-cp311-linux_x86_64.whl", markers = "platform_machine == 'x86_64' and platform_python_implementation == 'CPython' and platform_system == 'Linux'" }
 
 [build-system]
 requires = ["poetry-core"]
