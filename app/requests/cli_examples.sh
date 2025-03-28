@@ -1,1 +1,2 @@
-curl -v -H "Content-Type: application/json" POST -d '{"data":"some_data"}' http://localhost:8080/score
+curl -v -H "Content-Type: application/json" -d '{"data":"some_data"}' http://localhost:8000/predict
+curl -v -o "output.txt" -d '{"data":"some_data"}' -H "Content-Type:application/json" http://localhost:8000/predict
